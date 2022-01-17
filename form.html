@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма</title>
+    <style>
+        .output {
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="form" action="#" method="get">
+        <select name="select-1" id="select-1">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <select name="select-2" id="select-2">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <select name="select-3" id="select-3">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <select name="select-4" id="select-4">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <select name="select-5" id="select-5"><option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <input type="text" name="input-1" id="input-1">
+        <input type="text" name="input-2" id="input-2">
+        <button class="submit" type="submit">Отправить</button>
+    </form>
+    <p>Получившийся JSON:</p>
+    <textarea class="output" name="" id="" cols="30" rows="10"></textarea>
+    <script>
+        const form = document.querySelector('#form')
+        const textarea = document.querySelector('.output');
+        const submit = document.querySelector('.submit');
+
+        submit.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('prevented');
+            let fd = new FormData(form);
+            let data = {};
+            for (let [key, prop] of fd) {
+                data[key] = prop;
+            }
+            data = JSON.stringify(data, null, 2);
+            textarea.innerHTML = data;
+
+            fetch('https://22.javascript.pages.academy/keksobooking/data',
+            {
+            method: 'GET',
+            credentials: 'same-origin',
+            },
+        )
+            .then ((answer) => {
+            if (answer.ok) {
+                alert('Все хорошо')
+            } else {
+                alert('Все плохо');
+            }
+            })
+            .catch(() => {
+                alert('Все плохо');
+            })
+
+            
+        })
+    </script>
+
+</body>
+</html>
